@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER Martial Michel
+ENV F4DEftp ftp://jaguar.ncsl.nist.gov/pub/F4DE-3.2.2-20150422-1520Z.tar.bz2
 
 # Make sure we have bash as our default shell
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -18,7 +19,7 @@ ENV PERLBREW_PATH=/perl5/bin:/perl5/perls/perl-5.16.3/bin
 ENV PERLBREW_SKIP_INIT=1
 
 # Obtain F4DE & Install its perl packages
-RUN wget ftp://jaguar.ncsl.nist.gov/pub/F4DE-3.2.2-20150422-1520Z.tar.bz2 -O /tmp/F4DE.tbz2 && tar xfj /tmp/F4DE.tbz2 && mv F4DE-* F4DE && cd F4DE && cpanp s conf prereqs 1 && cpanp s save && make perl_install
+RUN wget $F4DEftp -O /tmp/F4DE.tbz2 && tar xfj /tmp/F4DE.tbz2 && mv F4DE-* F4DE && cd F4DE && cpanp s conf prereqs 1 && cpanp s save && make perl_install
 
 # Run F4DE's core tests & Install
 RUN cd /F4DE && make check && make install
