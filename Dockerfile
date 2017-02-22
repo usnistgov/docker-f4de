@@ -32,7 +32,7 @@ RUN mkdir /f4de_work
 WORKDIR /f4de_work
 
 # build with (adapt version number)
-# % docker build --tag="martialnist/f4de:3.3.1" .
+# % docker build --tag="martialnist/docker-f4de:3.3.1" .
 
 # use with (adapt <IMAGENAME> and directories)
 # % docker run -t -i -v <INDIR>:/f4de_indir:ro -v <OUTDIR>:/f4de_outdir <IMAGENAME> /bin/bash
