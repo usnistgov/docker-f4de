@@ -1,5 +1,7 @@
 FROM ubuntu:14.04
-MAINTAINER Martial Michel
+LABEL "Author"="Martial Michel <martial.miche@nist.gov>"
+LABEL version="3.3.1"
+LABEL description="Preconfigured Ubuntu 14.04 with Perl 5.16.3 environment for running F4DE 3.3.1 tools"
 
 # Make sure we have bash as our default shell
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -18,7 +20,7 @@ ENV PERLBREW_PATH=/perl5/bin:/perl5/perls/perl-5.16.3/bin
 ENV PERLBREW_SKIP_INIT=1
 
 # Obtain F4DE & Install its perl packages
-ENV F4DEgh https://github.com/usnistgov/F4DE/archive/3.2.5.tar.gz
+ENV F4DEgh https://github.com/usnistgov/F4DE/archive/3.3.1.tar.gz
 RUN wget $F4DEgh -O /tmp/F4DE.tgz && tar xfz /tmp/F4DE.tgz && mv F4DE-* F4DE && cd F4DE && cpanp s conf prereqs 1 && cpanp s save && make perl_install
 
 # Run F4DE's core tests & Install
@@ -30,7 +32,7 @@ RUN mkdir /f4de_work
 WORKDIR /f4de_work
 
 # build with (adapt version number)
-# % docker build --tag="martialnist/f4de:3.2.5" .
+# % docker build --tag="martialnist/f4de:3.3.1" .
 
 # use with (adapt <IMAGENAME> and directories)
 # % docker run -t -i -v <INDIR>:/f4de_indir:ro -v <OUTDIR>:/f4de_outdir <IMAGENAME> /bin/bash
